@@ -225,6 +225,7 @@ class Leader(State):
         for index, count in index_counter.items():
             total_peers_count += count
             if total_peers_count / len(config.cluster) > 0.5:
+				logger.info("Committing entry. Received response from {} out of {} peers".format(total_peers_count, len(config.cluster)))
                 self.log.commit(index)
                 self.send_client_append_response()
                 break
